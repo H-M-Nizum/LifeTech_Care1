@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="mb-4">
+    <div style="margin: auto;" class="row gap-5">
+        <div style="width: 60%; margin: auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" class="card">
+            <img style="height: 400px;" src="{{doctor.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h4  class="card-title">Name : {{doctor.user.first_name}}{{doctor.user.last_name}}</h4>
+                <h5>Fee : {{doctor.fee}} </h5>
+           
+              <h5> {% for j in doctor.designation.all %}
+                <p>Designation - <button> {{j}}</button> </p>
+                {% endfor %}</h5>
+            
+            <h5> {% for j in doctor.specialization.all %}
+                <p>Specialization - <button> {{j}}</button> </p>
+                {% endfor %}</h5>
+            <h5> {% for j in doctor.available_time.all %}
+                <p>Time - <button> {{j}}</button> </p>
+                {% endfor %}</h5>
+              
+
+            </div>
+        </div>       
+    </div>
+  </div>
+  <hr>
+  <div class="mb-5">
+    {% if appointments %}
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID#</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Appointment Status</th>
+                        <th scope="col">Appointment Type</th>
+                        <th scope="col">Appointment Time</th>
+                      </tr>
+                    </thead>
+                {% for appointment in appointments %}
+                    <tbody>
+                      <tr>
+                        <th scope="row">{{appointment.id}}</th>
+                        <td>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</td>
+                        <td><a href="{% url 'Dr_change_appointment_status' appointment.id %}">{{ appointment.appointment_status }}</a></td>
+                        <td>{{ appointment.appointment_type }}</td>
+                        <td>{{ appointment.time }}</td>
+                      </tr>
+                    </tbody>
+                    {% endfor %}
+                  </table>
+                    
+           
+        {% else %}
+            <p>No appointments found for this doctor.</p>
+        {% endif %}
+  </div>
+</div>
+
+    
+    
+
+{% endblock content %}

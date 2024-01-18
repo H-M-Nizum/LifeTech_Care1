@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}POST Details{% endblock title %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% block content %}
+<div style="width: 70%; margin: auto">
+    <div class="row mt-5  d-flex align-items-center">
+        <div class="col-6">
+            <img src="{{object.image.url}}" class="card-img-top mb-3" alt="user image">
+        </div>
+        <div class="col-6 ml-3">
+          <h4class="card-tit le">Name :- {{object.name}}</h4class=>
+         
+          <p class="card-title">Details: {{object.description}}</p>
+    
+        
+        </div>
+
+
+    </div>
+</div>
+
+
+
+  
+{% endblock content %}

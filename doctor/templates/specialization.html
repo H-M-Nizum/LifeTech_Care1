@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home page{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="container text-center">
+    <a  class="btn btn-success m-4" href="{% url 'doctor' %}">ALL</a>
+    {% for i in specialization %}
+ 
+        <a href="{% url 'specialization' i.slug %}" class="btn btn-success m-4">{{i.name}}</a>
+
+    {% endfor %}
+</div> 
+
+<div class="container mb-5">
+        <button class="px-5 py-2 mb-4 btn btn-success text-white">{{data | length}} result found</button>
+        <div class="row gap-5">
+            {% for i in data %}
+                <div class="card" style="width: 25rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <img src="{{i.image.url}}" class="card-img-top pt-2" alt="user image">
+                    <div class="card-body">
+                        <h4  class="card-title">Name : {{i.user.first_name}}</h4>
+                        <h5>Fee : {{i.fee}} </h5>
+                   
+                      <h5> {% for j in i.designation.all %}
+                        <p>Designation - <button> {{j}}</button> </p>
+                        {% endfor %}</h5>
+                    
+                    <h5> {% for j in i.specialization.all %}
+                        <p>Specialization - <button> {{j}}</button> </p>
+                        {% endfor %}</h5>
+                    <h5> {% for j in i.available_time.all %}
+                        <p>Time - <button> {{j}}</button> </p>
+                        {% endfor %}</h5>
+                      <a href="{% url 'doctor_details_view' i.id %}" class="btn btn-primary">Details</a>
+                </div>
+            {% endfor %}
+                
+        </div>
+    </div>
+    
+
+</div>
+
+
+
+{% endblock content %}

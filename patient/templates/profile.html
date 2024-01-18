@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+  <div >
+    <div class="card text-center">
+      <div class="card-header">
+        <h2>{{user}}</h2>
+      </div>
+      <div class="card-body">
+        <p style="text-align: center;">{{user.first_name}}</p>
+        <p style="text-align: center;">{{user.last_name}}</p>
+        <p style="text-align: center;">{{user.email}}</p>
+      </div>
+      <div class="card-footer text-body-secondary">
+        
+      </div>
+    </div>
+  </div>
+    
+<div class="mt-5">
+  <hr>
+</div>
+<div class="">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Dr Name</th>
+            <th scope="col">Appointment Status</th>
+            <th scope="col">Appointment Type</th>
+            <th scope="col">Symptop</th>
+            <th scope="col">Time</th>
+            <th scope="col">Meet Link</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in appointment %}
+            <tr>
+                <th scope="row">{{i.doctor}}</th>
+                <td>{{i.appointment_status}}</td>
+                <td>{{i.appointment_type}}</td>
+                <td>{{i.symptop}}</td>
+                <td>{{i.time}}</td>
+                {% if i.appointment_status == 'Running' and i.appointment_type == 'Online' %}
+                <td><a target="_blank" href="{{i.doctor.meet_link}}">{{i.doctor.meet_link}}</a></td>
+                 {% else %}                 
+                <td>Not Ready</td>
+                {% endif %}
+              </tr>
+    
+            {% endfor %}
+          
+        </tbody>
+      </table>
+</div>
+{% endblock content %}
