@@ -4,7 +4,7 @@ from .models import PatientModel
 
 # display data in a table formate
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'email', 'mobile_no']
+    list_display = ['first_name', 'last_name', 'email', 'mobile_no', 'age', 'gender']
 
     # Get Relational fields data (forignkey, onetoonefield, manytomany fields)
     def first_name(self, obj):

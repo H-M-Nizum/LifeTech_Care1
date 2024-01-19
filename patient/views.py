@@ -46,7 +46,7 @@ def profileview(request):
     print(current_patient)
     apdata = AppiontmentModel.objects.filter(patient=current_patient)
     
-    return render(request, 'profile.html', {'data':data, 'appointment': apdata})
+    return render(request, 'profile.html', {'data':current_patient, 'appointment': apdata})
 
 
 # custom login for user doctor and admin
@@ -73,7 +73,7 @@ class CustomLoginView(View):
                 if hasattr(user, 'doctormodel'):
                     return redirect('doctor_profile')
                 elif hasattr(user, 'patientmodel'):
-                    return redirect('profile')
+                    return redirect('service')
                 elif user.is_superuser:
                     return redirect('home')
 

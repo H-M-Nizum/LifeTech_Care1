@@ -6,10 +6,10 @@
 {% block content %}
 
 <div class="container text-center">
-    <a  class="btn btn-warning m-4" href="{% url 'doctor' %}">ALL</a>
+    <a  class="btn btn-info m-4" href="{% url 'doctor' %}">ALL</a>
     {% for i in designation %}
  
-        <a href="{% url 'designation' i.slug %}" class="btn btn-warning m-4">{{i.name}}</a>
+        <a href="{% url 'designation' i.slug %}" class="btn btn-info m-4">{{i.name}}</a>
 
     {% endfor %}
 </div> 
@@ -18,25 +18,29 @@
         <button class="px-5 py-2 mb-4 btn btn-success text-white">{{data | length}} result found</button>
         <div class="row gap-5">
             {% for i in data %}
-                <div class="card" style="width: 22rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                    <img src="{{i.image.url}}" class="card-img-top pt-2" alt="user image">
-                    <div class="card-body">
-                        <h4  class="card-title">Name : {{i.user.first_name}}</h4>
-                        <h5>Fee : {{i.fee}} </h5>
-                   
-                      <h5> {% for j in i.designation.all %}
-                        <p>Designation - <button> {{j}}</button> </p>
-                        {% endfor %}</h5>
-                    
-                    <h5> {% for j in i.specialization.all %}
-                        <p>Specialization - <button> {{j}}</button> </p>
-                        {% endfor %}</h5>
-                    <h5> {% for j in i.available_time.all %}
-                        <p>Time - <button> {{j}}</button> </p>
-                        {% endfor %}</h5>
-                      <a href="{% url 'doctor_details_view' i.id %}" class="btn btn-primary">Details</a>
-                    </div>
+            <div class="card mb-2" style="width: 25rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img style="height:300px" src="{{i.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h4  class="card-title text-info">Dr. {{i.user.first_name}} {{i.user.last_name}}</h4>
+                    <p>Fee : {{i.fee}} </p>
+                
+                  {% comment %} <p> {% for j in i.designation.all %}
+                    <p>Designation - <button class="btn btn-light"> {{j}}</button> </p>
+                    {% endfor %}</p>
+                
+                <p> {% for j in i.specialization.all %}
+                    <p>Specialization - <button class="btn btn-light"> {{j}}</button> </p>
+                    {% endfor %}</p> {% endcomment %}
+                <p> {% for j in i.available_time.all %}
+                    <p>Time -{{j}}</p>
+                    {% endfor %}</p>
+                  <p class="text-end">
+                    <a href="{% url 'doctor_details_view' i.id %}" class="btn btn-primary">Details</a>
+                  </p>
+                  
+
                 </div>
+              </div>
             {% endfor %}
                 
         </div>

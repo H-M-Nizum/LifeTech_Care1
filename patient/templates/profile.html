@@ -1,30 +1,30 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
 <div class="container mt-4">
-  <div >
-    <div class="card text-center">
-      <div class="card-header">
-        <h2>{{user}}</h2>
-      </div>
-      <div class="card-body">
-        <p style="text-align: center;">{{user.first_name}}</p>
-        <p style="text-align: center;">{{user.last_name}}</p>
-        <p style="text-align: center;">{{user.email}}</p>
-      </div>
-      <div class="card-footer text-body-secondary">
-        
-      </div>
+  <div  class="row d-flex justify-content-center align-items-center mt-5" >
+    <div style="text-align: center;" class="col">
+      <img style="width: 250px; height: 250px; border-radius: 130px;" src="{% static 'patint.jpg' %}" alt="patient">
+      <h5  class="m-4">{{user.username}}</h5>
     </div>
-  </div>
+    <div class="col">
+      <p >Name -{{user.first_name}} {{user.last_name}}</p>
+      <p >Email - {{user.email}}</p>
+      <p >Phone - {{data.mobile_no}}</p>
+      <p > Age - {{data.age}}</p>
+      <p >Gender - {{data.gender}}</p>
+    </div>
     
+  </div>
+</div>
+ 
 <div class="mt-5">
   <hr>
 </div>
-<div class="">
-    <table class="table">
+<div  class="">
+    <table style="padding-left: 130px; padding-right: 30px;" class="table">
         <thead>
           <tr>
             <th scope="col">Dr Name</th>
@@ -42,7 +42,10 @@
                 <td>{{i.appointment_status}}</td>
                 <td>{{i.appointment_type}}</td>
                 <td>{{i.symptop}}</td>
-                <td>{{i.time}}</td>
+                <td> {% for j in i.doctor.available_time.all %}
+                  <p>{{j}} </p>
+                  {% endfor %}</td>
+  
                 {% if i.appointment_status == 'Running' and i.appointment_type == 'Online' %}
                 <td><a target="_blank" href="{{i.doctor.meet_link}}">{{i.doctor.meet_link}}</a></td>
                  {% else %}                 

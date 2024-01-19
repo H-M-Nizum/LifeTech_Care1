@@ -21,16 +21,16 @@
             <div class="card mb-2" style="width: 25rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                 <img style="height:300px" src="{{i.image.url}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h4  class="card-title text-info">{{i.user.first_name}}</h4>
+                    <h4  class="card-title text-info"> Dr. {{i.user.first_name}} {{i.user.last_name}}</h4>
                     <p>Fee : {{i.fee}} </p>
                 
-                  <p> {% for j in i.designation.all %}
+                  {% comment %} <p> {% for j in i.designation.all %}
                     <p>Designation - <button class="btn btn-light"> {{j}}</button> </p>
                     {% endfor %}</p>
                 
                 <p> {% for j in i.specialization.all %}
                     <p>Specialization - <button class="btn btn-light"> {{j}}</button> </p>
-                    {% endfor %}</p>
+                    {% endfor %}</p> {% endcomment %}
                 <p> {% for j in i.available_time.all %}
                     <p>Time -{{j}}</p>
                     {% endfor %}</p>

@@ -5,4 +5,4 @@ from .models import AppiontmentModel
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = AppiontmentModel
-        fields = ['appointment_type', 'symptop', 'time']
+        fields = ['appointment_type', 'symptop']

@@ -21,14 +21,14 @@ class DoctorAdmin(admin.ModelAdmin):
     def name(self, obj):
         return obj.user.username
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        email_subject = "Your Online Appointment is Running"
-        email_body = render_to_string('confirm_email.html')
+    # def save_model(self, request, obj, form, change):
+    #     obj.save()
+    #     email_subject = "Your Online Appointment is Running"
+    #     email_body = render_to_string('confirm_email.html')
             
-        email = EmailMultiAlternatives(email_subject , '', to=[obj.user.email])
-        email.attach_alternative(email_body, "text/html")
-        email.send()
+    #     email = EmailMultiAlternatives(email_subject , '', to=[obj.user.email])
+    #     email.attach_alternative(email_body, "text/html")
+    #     email.send()
 
 admin.site.register(models.DoctorModel, DoctorAdmin)
 admin.site.register(models.ReviewModel)

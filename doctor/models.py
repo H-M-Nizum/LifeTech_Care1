@@ -31,7 +31,9 @@ class DoctorModel(models.Model):
     specialization = models.ManyToManyField(SpecializationModel)
     available_time = models.ManyToManyField(AvailableTimeModel)
     fee = models.IntegerField()
-    meet_link = models.CharField(max_length=200)
+    
+    qualification = models.CharField(max_length=100, default='')
+    meet_link = models.CharField(max_length=200, default='')
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
