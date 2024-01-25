@@ -11,4 +11,6 @@ urlpatterns = [
     path('specialization/<slug:specialization_slug>/', views.specializationviews, name='specialization'),
     path('details/<int:pk>/', views.DoctorDetailsView.as_view(), name='doctor_details_view'),
 
+    path('review/<int:doctor_id>/', views.review_view, name='review'),
+    path('reviews/<int:doctor_id>/', views.doctor_reviews_view, name='doctor_reviews'),
 ]

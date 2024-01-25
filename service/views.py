@@ -11,3 +11,6 @@ class ServiceDetails(DetailView):
     model = models.ServiceModel
     # pk_url_kwarg = 'id'
     template_name = 'service_details.html'
+
+
+

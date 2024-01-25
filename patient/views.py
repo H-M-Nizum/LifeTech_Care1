@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from . import forms
 from patient.models import PatientModel
 from doctor.models import DoctorModel
-from appointment.models import AppiontmentModel
+from appointment.models import AppiontmentModel, prescriptionModel
 
 from .forms import RegisterForm
 from django.views.generic import FormView, DetailView, CreateView
@@ -42,11 +42,14 @@ class userlogoutview(View):
 # patient profile page
 def profileview(request):
     data = PatientModel.objects.filter(user=request.user)
+   
     current_patient = request.user.patientmodel
     print(current_patient)
     apdata = AppiontmentModel.objects.filter(patient=current_patient)
-    
-    return render(request, 'profile.html', {'data':current_patient, 'appointment': apdata})
+    prescription = prescriptionModel.objects.filter(patient=current_patient)
+    # for i in prescription:
+    #     print(i.body)
+    return render(request, 'profile.html', {'data':current_patient, 'appointment': apdata, 'prescription': prescription})
 
 
 # custom login for user doctor and admin
@@ -90,5 +93,17 @@ class DoctorProfileView(View):
 
 
 
+
+# show all prescription for a single patient
+def patient_prescriptions(request, patient_id):
+    patient_prescriptions = prescriptionModel.objects.filter(patient_id=patient_id)
+    return render(request, 'prescription.html', {'data': patient_prescriptions})
+
+# show single prescription for a single patient
+
+class Single_prescriptions(DetailView):
+    model = prescriptionModel
+    # pk_url_kwarg = 'id'
+    template_name = 'single_prescription.html'
 
 

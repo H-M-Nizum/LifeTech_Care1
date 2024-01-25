@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from . import models
-from .forms import DoctorForm
+from .forms import DoctorForm, ReviewForm
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 
@@ -55,6 +55,16 @@ class DoctorDetailsView(DetailView):
     model = models.DoctorModel
     # pk_url_kwarg = 'id'
     template_name = 'doctor_details.html'
+    context_object_name = 'doctor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get reviews related to the current doctor
+        reviews = ReviewModel.objects.filter(doctor=self.object)
+        
+        context['reviews'] = reviews
+        return context
 
 
 # i can delete it . it not need
@@ -103,3 +113,29 @@ class RegistrationView(View):
 
 
 
+# review views
+
+@login_required
+def review_view(request, doctor_id):
+    dr = get_object_or_404(models.DoctorModel, pk=doctor_id)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.reviewer = request.user.patientmodel
+            review.doctor = dr
+            review.save()
+            return redirect('doctor')  
+    else:
+        form = ReviewForm()
+
+    return render(request, 'review.html', {'form': form, 'dr': dr})
+
+from .models import DoctorModel, ReviewModel
+@login_required
+def doctor_reviews_view(request, doctor_id):
+    doctor = get_object_or_404(DoctorModel, pk=doctor_id)
+    reviews = ReviewModel.objects.filter(doctor=doctor)
+
+    return render(request, 'display_review.html', {'doctor': doctor, 'reviews': reviews})

@@ -26,4 +26,13 @@ class AppiontmentModel(models.Model):
 
     def __str__(self):
         return f"DR. {self.doctor.user.first_name}, Patient:- {self.patient.user.first_name}"
-    
+
+class prescriptionModel(models.Model):
+    patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(DoctorModel, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"DR. {self.doctor.user.first_name}, Patient:- {self.patient.user.first_name}"

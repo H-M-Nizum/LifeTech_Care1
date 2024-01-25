@@ -15,6 +15,7 @@
       <p >Phone - {{data.mobile_no}}</p>
       <p > Age - {{data.age}}</p>
       <p >Gender - {{data.gender}}</p>
+      <p ><a href="{% url 'patient_prescription' data.id %}"> Prescription</a></p>
     </div>
     
   </div>
@@ -33,6 +34,7 @@
             <th scope="col">Symptop</th>
             <th scope="col">Time</th>
             <th scope="col">Meet Link</th>
+            <th scope="col">Comment</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +53,7 @@
                  {% else %}                 
                 <td>Not Ready</td>
                 {% endif %}
+                <td><a href="{% url 'review' i.doctor.id %}">Comment</a></td>
               </tr>
     
             {% endfor %}

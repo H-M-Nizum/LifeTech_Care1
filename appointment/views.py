@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import AppointmentForm
+from .forms import AppointmentForm, prescriptionForm
 from doctor.models import DoctorModel
 from patient.models import PatientModel
-from .models import AppiontmentModel
+from .models import AppiontmentModel, prescriptionModel
 from django.views import View
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -74,3 +74,24 @@ def delete_appointment(request, appointment_id):
     appointment_instance = get_object_or_404(AppiontmentModel, id=appointment_id)
     appointment_instance.delete()
     return redirect('doctor_appointments', doctor_id=appointment_instance.doctor.id)
+
+
+# make prections 
+
+def create_prescription(request, patient_id):
+    
+    patient = PatientModel.objects.get(pk=patient_id)
+    doctor = DoctorModel.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = prescriptionForm(request.POST)
+        if form.is_valid():
+            prescription = form.save(commit=False)
+            prescription.patient = patient
+            prescription.doctor = doctor
+            prescription.save()
+            return redirect('doctor_profile')
+    else:
+        form = prescriptionForm()
+
+    return render(request, 'create_prescription.html', {'form': form, 'patient': patient, 'doctor': doctor})

@@ -44,6 +44,7 @@
                         <th scope="col">Appointment Status</th>
                         <th scope="col">Appointment Type</th>
                         <th scope="col">Appointment Time</th>
+                        <th scope="col">Prescription</th>
                       </tr>
                     </thead>
                 {% for appointment in appointments %}
@@ -56,7 +57,9 @@
                         <td>{% for j in doctor.available_time.all %}
                           <p>{{j}} </p>
                           {% endfor %}</td>
-                      </tr>
+                          <td><a href="{% url 'create_prescription' appointment.patient.id %}">Create</a></td>
+                        
+                        </tr>
                     </tbody>
                     {% endfor %}
                   </table>
