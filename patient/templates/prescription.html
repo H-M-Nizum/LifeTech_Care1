@@ -14,7 +14,7 @@
     <div class="row gap-5 mb-5">
         <ul>
             {% for i in data %}
-            <li><a target="_blank" href="{% url 'single_prescription' i.id %}">{{i.doctor}} - {{i.created_time}}</a></li>
+            <li><a target="_blank" href="{% url 'pdf' i.id %}">{{i.doctor}} - {{i.created_time}}</a></li>
             {% endfor %}
         </ul>
             

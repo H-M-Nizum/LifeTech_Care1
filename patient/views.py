@@ -107,3 +107,33 @@ class Single_prescriptions(DetailView):
     template_name = 'single_prescription.html'
 
 
+
+
+# Html to pdf download
+
+# importing the necessary libraries
+from django.http import HttpResponse
+from django.views.generic import View
+from appointment.models import prescriptionModel
+from .process import html_to_pdf 
+from django.template.loader import render_to_string
+from django.shortcuts import get_object_or_404
+
+#Creating a class based view
+class GeneratePdf(View):
+     def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        print(pk)
+        data = get_object_or_404(prescriptionModel, id=pk)
+        print('data',data)
+        open('templates/temp.html', "w").write(render_to_string('pdf.html', {'data': data}))
+
+        # Converting the HTML template into a PDF file
+        pdf = html_to_pdf('temp.html')
+         
+         # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
+
+

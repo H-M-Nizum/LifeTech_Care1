@@ -9,6 +9,7 @@
   <body>
     
     <div class="container mt-5 ">
+        <a href="{% url 'pdf' object.id %}">Download</a>
         <h1 class="text-center mb-5">LifeTech Care Hospital</h1>
         <div class="row">
             <div style="padding-left: 100px;" class="col-md-8">
@@ -20,7 +21,7 @@
                 <p><strong>Patient_</strong></p>
                 <p>{{object.patient.user.first_name}} {{object.patient.user.last_name}}</p>
                 <p>{{object.patient.user.email}}</p>
-                <p> Age - {{object.patient.age}}</p>
+                <p> Age - {{data.age}} {{object.patient.age}}</p>
                 <p>Gender - {{object.patient.gender}}</p>
             </div>
         </div>
