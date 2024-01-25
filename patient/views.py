@@ -76,7 +76,7 @@ class CustomLoginView(View):
                 if hasattr(user, 'doctormodel'):
                     return redirect('doctor_profile')
                 elif hasattr(user, 'patientmodel'):
-                    return redirect('service')
+                    return redirect('home')
                 elif user.is_superuser:
                     return redirect('home')
 
