@@ -30,6 +30,7 @@ urlpatterns = [
     path('contact/', include('contact_us.urls')),
     path('medicine/', include('medicine.urls')),
     path('medicaltest/', include('medicalTest.urls')),
+    path('employee/', include('employee.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
