@@ -7,7 +7,7 @@ class MedicinelistModel(models.Model):
     category = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
     strength = models.CharField(max_length=100)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class BuyMedicineModel(models.Model):
     doctor = models.ForeignKey(DoctorModel, on_delete=models.CASCADE)
