@@ -124,6 +124,18 @@
                   </li>
                 
                   {% endif %}
+
+                  {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_test' %}">Add_Test</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'seeTset' %}">MedicalTest</a>
+                    </li>
+                    
+                  {% endif %}
                
                 </ul>
                 <div class="d-flex">
