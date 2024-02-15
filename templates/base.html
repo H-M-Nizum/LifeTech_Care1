@@ -90,7 +90,7 @@
     <section  >
         <nav class="navbar sticky-top  navbar-expand-lg text-white" style="background: #263238;">
             <div class="container-fluid">
-              <h3 class="navbar-brand text-white">LifeTech Care</h3>
+              <h3 class="navbar-brand text-white ps-5">LifeTech Care</h3>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -109,8 +109,12 @@
                   {% if request.user.is_superuser %}
                   
                   <li class="nav-item">
-                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'ddoctoradd' %}">Doctor add</a>
+                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'ddoctoradd' %}">Doctor_Add</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_medicine' %}">Medicine_Add</a>
+                  </li>
+                  
                   {% endif %}
                   <li class="nav-item">
                     <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'doctor' %}">Doctor</a>
@@ -193,7 +197,7 @@
                           <ul class="list-unstyled">
                               <li><a href="{% url 'home' %}">Home</a></li> 
                              
-                              <li><a href="#">Premium Tutor</a></li> 
+                              <li><a href="{% url "doctor" %}">Premium Doctor</a></li> 
                               <li><a href="#">Privacy and policy</a></li> 
                               <li><a href="#">Contact Us</a></li>
                           </ul>
@@ -203,9 +207,9 @@
                       <div style="color: #999999;" class="single_footer">
                           <h3 style="color: white;">Work With Us</h3> 
                           <ul class="list-unstyled">
-                            <li><a href="{% url 'register' %}">Signup for tutor</a></li> 
-                            <li><a class="text-decoration-none" href="{% url 'login' %}">Signin for Tutor</a></li> 
-                              <li><a href="#">Hire A Tutor</a></li>
+                            <li><a href="{% url 'register' %}">Signup Appointment</a></li> 
+                            <li><a class="text-decoration-none" href="{% url 'login' %}">Signin for Appointment</a></li> 
+                              <li><a href="{% url "doctor" %}">Appointment a doctor</a></li>
                           </ul>
                       </div>
                   </div> 
