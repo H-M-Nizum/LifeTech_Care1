@@ -51,7 +51,12 @@
             <th class="p-4" scope="col">Designation</th>
             <th class="p-4" scope="col">Salary</th>
             <th class="p-4" scope="col">Join date</th>
+            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
             <th class="p-4" scope="col">Action</th>
+            {% endif %}
+  
+          {% endif %}
             
     
           </tr>
@@ -69,7 +74,12 @@
               {% endfor %}
               <td>{{ i.salary }}</td>
               <td>{{ i.join_date }}</td>
-              <td><a class="btn btn-danger" href="{% url 'delete_employee' i.id %}">Fire</a></td>
+              {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                <td><a class="btn btn-danger" href="{% url 'delete_employee' i.id %}">Fire</a></td>
+                {% endif %}
+      
+              {% endif %}
               
             </tr>
           {% endfor %}
