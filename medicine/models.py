@@ -10,9 +10,7 @@ class MedicinelistModel(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class BuyMedicineModel(models.Model):
-    doctor = models.ForeignKey(DoctorModel, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
-    medicine = models.ForeignKey(MedicinelistModel, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateTimeField(auto_now_add=True)

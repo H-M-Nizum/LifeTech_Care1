@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import MedicinelistForm
 from .models import MedicinelistModel
 from django.views.generic import ListView, UpdateView
 from django.urls import reverse_lazy
 
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
 
 def create_medicine(request):
     if request.method == 'POST':
@@ -40,3 +41,10 @@ def MedicineDeleteView(request, id):
     record = MedicinelistModel.objects.get(pk=id)
     record.delete()
     return redirect('medicine_list')
+
+
+@login_required
+def order_medicineviews(request, medicine_id):
+    medicine = get_object_or_404(MedicinelistModel, pk=medicine_id)
+    print(medicine.price)
+    return redirect('medicine_list', {'m_price': medicine})
