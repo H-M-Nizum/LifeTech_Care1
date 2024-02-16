@@ -1,12 +1,16 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}POST Details{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div style="width: 70%; margin: auto">
     <div class="row mt-5  d-flex align-items-center">
         <div class="col-6">
-            <img src="{{object.image.url}}" class="card-img-top mb-3" alt="user image">
+          {% if object.image %}
+          <img src="{{object.image.url}}" class="card-img-top mb-3" alt="user image">
+          {% else %}
+          <img style="height:300px" src="{% static 'd4.jpg' %}" class="card-img-top" alt="...">
+          {% endif %}
         </div>
         <div class="col-6 ml-3">
           <h4 class="card-title pb-3">Name :- {{object.user.first_name}} {{object.user.last_name}}</h4>

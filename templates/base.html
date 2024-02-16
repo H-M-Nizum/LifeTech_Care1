@@ -100,7 +100,7 @@
                     <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'home' %}">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'contact' %}">Contact_us</a>
+                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'contact' %}">Contact us</a>
                   </li>
                   {% if request.user.is_authenticated %}
                   <li class="nav-item">
@@ -109,10 +109,10 @@
                   {% if request.user.is_superuser %}
                   
                   <li class="nav-item">
-                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'ddoctoradd' %}">Doctor_Add</a>
+                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'ddoctoradd' %}">Add Doctor</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_medicine' %}">Medicine_Add</a>
+                    <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_medicine' %}">Add Medicine</a>
                   </li>
                   
                   {% endif %}
@@ -128,7 +128,7 @@
                   {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                     <li class="nav-item">
-                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_test' %}">Add_Test</a>
+                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'create_test' %}">Add Test</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
@@ -139,7 +139,7 @@
                   {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                     <li class="nav-item">
-                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'add_employee' %}">Add_Employee</a>
+                      <a class="nav-link active text-white hvr-underline-from-left" aria-current="page" href="{% url 'add_employee' %}">Add Employee</a>
                     </li>
                   
                     {% endif %}
@@ -193,8 +193,6 @@
 
       {% block content %}{% endblock content %}
     </section>
-
-
 
     <!-- Footer -->
     <div class="footer_area">
@@ -282,5 +280,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
 
+
+  {% for i in messages %}
+  <script>
+    Swal.fire({
+      title: "Status",
+      text: "{{i}}",
+      icon: "{{i.tags}}",
+      confirmButtonText: 'ok'
+    });
+  </script>
+  {% endfor %}
   </body>
 </html>

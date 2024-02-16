@@ -12,19 +12,19 @@ class AddEmployeeViews(CreateView):
     model = EmployeeModel
     form_class = AddEmployeeForm
     template_name = 'employee.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('display')
 
 class UpdateemployeeViews(UpdateView):
     model = EmployeeModel
     form_class = AddEmployeeForm
     template_name = 'employee.html'
-    success_url = reverse_lazy('home') 
+    success_url = reverse_lazy('display') 
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_EmployeeViews(request, id):
     record = EmployeeModel.objects.get(pk=id)
     record.delete()
-    return redirect('home')
+    return redirect('display')
 
 @login_required
 def displayEmployeeview(request, desig_slug = None):
@@ -35,3 +35,5 @@ def displayEmployeeview(request, desig_slug = None):
         
     designation = DesignationModel.objects.all()
     return render(request, 'Displayemployee.html', {'data':data, 'designation': designation})
+
+

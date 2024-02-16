@@ -53,9 +53,15 @@
       <h3>Purchase's Boucher</h3>
     </div>
     <div class="card-body">
+      <div id="boucher_body">
+
+      </div>
       <h5 class="card-title">Total Iteam : <span id="iteam">00</span></h5>
       <p class="card-text">Total Price : <span id="price">0.00</span>TK</p>
-      <a href="#" class="btn btn-primary">Buy Now</a>
+      <a href="{% url 'buy_medicine' %}" class="btn btn-primary">Buy Now</a>
+    </div>
+    <div class="card-header bg-secondary text-white p-3">
+    
     </div>
   </div>
 </div>
@@ -83,16 +89,16 @@
       {% for medicine in medicines %}
         <tr>
           <td scope="row">{{ medicine.id }}</td>
-          <td>{{ medicine.name }}</td>
+          <td id="{{ medicine.name }}">{{ medicine.name }}</td>
           <td>{{ medicine.category }}</td>
           <td>{{ medicine.company }}</td>
           <td>{{ medicine.strength }}</td>
           <td id="{{ medicine.id }}">{{ medicine.price }}</td>
           {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
-            <td><a href="{% url 'medicine_edit' medicine.id %}" >Edit</a> <a href="{% url 'medicine_delete' medicine.id %}">Delete</a></td>
+            <td><a class="btn btn-info" href="{% url 'medicine_edit' medicine.id %}" >Edit</a> <a class="btn btn-danger" href="{% url 'medicine_delete' medicine.id %}">Delete</a></td>
             {% else %}
-            <td> <button onclick="addorder('{{medicine.id}}')">Add to Bag</button></td>
+            <td> <button onclick="addorder('{{medicine.id}}', '{{medicine.name}}')">Add to Bag</button></td>
             {% endif %}
   
           {% endif %}
@@ -104,7 +110,7 @@
 
 
   <script>
-    const addorder = (medicine_id) => {
+    const addorder = (medicine_id, medicine_name) => {
       // //////////////////Get and add price
       const price = document.getElementById(medicine_id).innerText
       // console.log(price)
@@ -118,6 +124,13 @@
       // console.log(previous_iteam)
       // console.log(parseFloat(price)+parseFloat(previous_amount)) 
       document.getElementById("iteam").innerText = parseFloat(previous_iteam)+1
+      
+      // ///////////// Get and add medicine name
+      const previous_name = document.getElementById(medicine_name).innerText
+      // console.log(previous_name)
+      document.getElementById("boucher_body").innerHTML += `<p> ${previous_name} - Price : ${price}TK </p>`
+
+
 
     }
   </script>

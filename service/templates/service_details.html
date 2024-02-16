@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}POST Details{% endblock title %}
+{% block title %}Services{% endblock title %}
 {% comment %} {% load crispy_forms_tags %} {% endcomment %}
 {% block content %}
 <div style="width: 70%; margin: auto">
@@ -9,11 +9,25 @@
             <img src="{{object.image.url}}" class="card-img-top mb-3" alt="user image">
         </div>
         <div class="col-6 ml-3">
-          <h4class="card-tit le">Name :- {{object.name}}</h4class=>
+          <h4 class="card-tit le">Name :- {{object.name}}</h4>
          
           <p class="card-title">Details: {{object.description}}</p>
     
-        
+            {% if object.name == "Pharmacy Services" %}
+            <a class="btn btn-primary mt-3" href="{% url 'medicine_list' %}">Explore Pharmacy</a>
+            {% elif  object.name == "Medical Test" %}
+            <a class="btn btn-primary mt-3 mb-3" href="{% url 'seeTset' %}">Explore Medical Test</a>
+            {% elif object.name == "CT Scan" %}
+            <a class="btn btn-primary mt-3 mb-3" href="{% url 'seeTset' %}">Explore CT Scan</a>
+            {% elif object.name == "X-ray" %}
+            <a class="btn btn-primary mt-3 mb-3" href="{% url 'seeTset' %}">Explore X-ray</a>
+            {% elif object.name == "Emergency Services" %}
+            <a class="btn btn-primary mt-3 mb-3" href="{% url 'contact' %}">Contact Us</a>
+            {% else %}
+            <button class="btn btn-primary mt-3 mb-3">Under Construction This section</button>
+
+
+            {% endif %}
         </div>
 
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import MedicinelistForm
-from .models import MedicinelistModel
+from .models import MedicinelistModel, BuyMedicineModel
 from django.views.generic import ListView, UpdateView
 from django.urls import reverse_lazy
 
@@ -44,7 +44,16 @@ def MedicineDeleteView(request, id):
 
 
 @login_required
-def order_medicineviews(request, medicine_id):
-    medicine = get_object_or_404(MedicinelistModel, pk=medicine_id)
-    print(medicine.price)
-    return redirect('medicine_list', {'m_price': medicine})
+def order_medicineviews(request):
+    applicant = request.user.patientmodel
+    BuyMedicineModel.objects.create(patient=applicant, tution=tution)
+    return redirect('medicine_list')
+
+from django.contrib import messages
+
+@login_required
+def Buy_medicineviews(request):
+    messages.success(request, 'Medicine Buy Successfully. Welcome Back!')
+    return redirect('medicine_list')
+
+

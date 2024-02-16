@@ -58,7 +58,7 @@
                 {% if request.user.is_superuser %}
                 <th class="p-4" scope="col">Action</th>
                 {% else %}
-                <th class="p-4" scope="col">Buy</th>
+                <th class="p-4" scope="col">Action</th>
                 {% endif %}
       
               {% endif %}
@@ -75,9 +75,9 @@
               <td>{{ medicine.price }}</td>
               {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
-                <td><a href="{% url 'medicine_edit' medicine.id %}" >Edit</a> <a href="{% url 'medicine_delete' medicine.id %}">Delete</a></td>
+                <td><a class="btn btn-info" href="{% url 'medicine_edit' medicine.id %}" >Edit</a> <a class="btn btn-danger" href="{% url 'medicine_delete' medicine.id %}">Delete</a></td>
                 {% else %}
-                <td>Apply</td>
+                <td><a class="btn btn-primary" href="{% url 'test_apply' medicine.id %}">Apply</a> </td>
                 {% endif %}
       
               {% endif %}

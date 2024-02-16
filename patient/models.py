@@ -12,9 +12,7 @@ class PatientModel(models.Model):
     mobile_no = models.CharField(max_length=12, default='')
     age = models.IntegerField()
     gender = models.CharField(max_length=30, choices=GENDER, default='Male')
- 
-
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+    
+    
+    
     

@@ -19,8 +19,11 @@
         <div class="row gap-5">
             {% for i in data %}
             <div class="card mb-2" style="width: 25rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                <img style="height:300px" src="{{i.image.url}}" class="card-img-top" alt="...">
-                <div class="card-body">
+              {% if i.image %}
+              <img style="height:300px" src="{{i.image.url}}" class="card-img-top" alt="...">
+              {% else %}
+              <img style="height:300px" src="{% static 'd4.jpg' %}" class="card-img-top" alt="...">
+              {% endif %}                <div class="card-body">
                     <h4  class="card-title text-info">Dr. {{i.user.first_name}} {{i.user.last_name}}</h4>
                     <p>Fee : {{i.fee}} </p>
                 

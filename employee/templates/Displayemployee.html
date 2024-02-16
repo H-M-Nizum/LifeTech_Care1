@@ -51,6 +51,7 @@
             <th class="p-4" scope="col">Designation</th>
             <th class="p-4" scope="col">Salary</th>
             <th class="p-4" scope="col">Join date</th>
+            <th class="p-4" scope="col">Action</th>
             
     
           </tr>
@@ -68,6 +69,7 @@
               {% endfor %}
               <td>{{ i.salary }}</td>
               <td>{{ i.join_date }}</td>
+              <td><a class="btn btn-danger" href="{% url 'delete_employee' i.id %}">Fire</a></td>
               
             </tr>
           {% endfor %}

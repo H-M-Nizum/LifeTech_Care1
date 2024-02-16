@@ -11,6 +11,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 from .forms import LoginForm
+from django.contrib import messages
+
 # Create your views here.
 
 # user/ patient can registration
@@ -36,6 +38,7 @@ class UserRegistrationViews(FormView):
 class userlogoutview(View):
     def get(self, request):
         logout(request)
+        messages.success(self.request, 'Logout Successfully. Welcome Back!')
         return redirect('home')
 
 
@@ -74,10 +77,13 @@ class CustomLoginView(View):
 
                 # Check the user's role and redirect accordingly
                 if hasattr(user, 'doctormodel'):
-                    return redirect('doctor_profile')
+                    messages.success(self.request, 'Login Successfully. Welcome Back!')
+                    return redirect('home')
                 elif hasattr(user, 'patientmodel'):
+                    messages.success(self.request, 'Login Successfully. Welcome Back!')
                     return redirect('home')
                 elif user.is_superuser:
+                    messages.success(self.request, 'Login Successfully. Welcome Back!')
                     return redirect('home')
 
         return render(request, self.template_name, {'form': form})
