@@ -12,7 +12,7 @@ def create_medicine(request):
         form = MedicinelistForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  
+            return redirect('medicine_list')  
     else:
         form = MedicinelistForm()
 
