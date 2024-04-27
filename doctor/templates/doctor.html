@@ -25,7 +25,7 @@
                 <img style="height:300px" src="{% static 'd4.jpg' %}" class="card-img-top" alt="...">
                 {% endif %}
                 <div class="card-body">
-                    <h4  class="card-title text-info"> Dr. {{i.user.first_name}} {{i.user.last_name}}</h4>
+                    <h4  class="card-title text-info"> {{i.user.first_name}} {{i.user.last_name}}</h4>
                     <p>Fee : {{i.fee}} </p>
                 
                   {% comment %} <p> {% for j in i.designation.all %}

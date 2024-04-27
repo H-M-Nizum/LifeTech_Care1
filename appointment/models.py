@@ -20,7 +20,6 @@ class AppiontmentModel(models.Model):
     appointment_status = models.CharField(max_length=30, choices=APPOINTMENT_STATUS, default='Pending')
     appointment_type = models.CharField(max_length=30, choices=APPOINTMENT_TYPE, default='Offline')
     symptop = models.TextField()
-    # time = models.ForeignKey(AvailableTimeModel, on_delete=models.CASCADE)
     cancel = models.BooleanField(default=False)
 
 

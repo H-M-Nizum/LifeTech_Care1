@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from . import models
-from .forms import DoctorForm, ReviewForm
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from .forms import  ReviewForm
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, FormView
 from django.urls import reverse_lazy
 
 
@@ -19,6 +19,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views import View
+from .forms import DoctorRegistrationForm
 
 # Create your views here.
 
@@ -70,7 +71,7 @@ class DoctorDetailsView(DetailView):
 # i can delete it . it not need
 class RegistrationView(View):
     template_name = 'doctor_regostration.html'
-    form_class = DoctorForm
+    form_class = DoctorRegistrationForm
 
     def get(self, request):
         form = self.form_class()
@@ -84,16 +85,63 @@ class RegistrationView(View):
             user = doctor.user 
 
             # Send confirmation email
-            email_subject = 'Confirm your email'
-            email_body = render_to_string('confirm_email.html')
+            # email_subject = 'Confirm your email'
+            # email_body = render_to_string('confirm_email.html')
 
-            email = EmailMultiAlternatives(email_subject, '', to=[user.email])
-            email.attach_alternative(email_body, "text/html")
-            email.send()
-            doctor.save()
-            return HttpResponse("Check your email for confirmation.")
+            # email = EmailMultiAlternatives(email_subject, '', to=[user.email])
+            # email.attach_alternative(email_body, "text/html")
+            # email.send()
+            # doctor.save()
+            # return HttpResponse("Check your email for confirmation.")
         
         return render(request, self.template_name, {'form': form})
+
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+
+class UserRegistrationViews(FormView):
+    template_name = 'user_regostration.html'
+    form_class = DoctorRegistrationForm
+    success_url =reverse_lazy('home')
+    
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form) # form_valid functions call hobe jodi sob thik thake
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+@login_required  # You may adjust the login requirement as needed
+def doctor_registration1(request):
+    if request.method == 'POST':
+        form = DoctorRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            
+            # Get or create DoctorModel instance for the user
+            doctor_instance, created = DoctorModel.objects.get_or_create(user=user)
+
+            # Update many-to-many fields using set() method
+            doctor_instance.designation.set(form.cleaned_data['designation'])
+            doctor_instance.specialization.set(form.cleaned_data['specialization'])
+            doctor_instance.available_time.set(form.cleaned_data['available_time'])
+
+            # Update other fields
+            doctor_instance.image = form.cleaned_data['image']
+            doctor_instance.fee = 1000
+            doctor_instance.qualification = form.cleaned_data['qualification']
+            doctor_instance.meet_link = form.cleaned_data['meet_link']
+            print(doctor_instance.fee)
+            # Save the DoctorModel instance
+            doctor_instance.save()
+
+            return redirect('home')  # Redirect to a success page or another view
+
+    else:
+        form = DoctorRegistrationForm()
+
+    return render(request, 'doctor_regostration.html', {'form': form})
+
 
 
 # class ActivateAccountView(View):
